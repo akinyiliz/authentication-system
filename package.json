@@ -1,0 +1,16 @@
+{
+  "name": "authentication-system",
+  "version": "1.0.0",
+  "description": "A secure user authentication system.",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server/index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.2"
+  }
+}
