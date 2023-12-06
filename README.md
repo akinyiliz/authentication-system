@@ -32,13 +32,13 @@ This project is a simple authentication system built using Node.js, Express.js a
 1. Clone the repository:
 
    ```bash
-    ~$ git clone https://github.com/your-username/authentication-system.git
+    git clone https://github.com/your-username/authentication-system.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   ~$ cd authentication-system
+   cd authentication-system
    ```
 
 3. Install depencies:
@@ -74,8 +74,8 @@ You can customize the application by modifying the configuration in the `.env` f
 
 # Routes
 
-- **POST /register**: Register a new user.
-- **POST /login**: Authenticate and log in a user.
+- **POST /users/register**: Register a new user.
+- **POST /users/login**: Authenticate and log in a user.
 - **GET /profile**: Get the user profile (requires authentication).
 - **POST /logout**: Log out the authenticated user.
 
