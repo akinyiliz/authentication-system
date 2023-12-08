@@ -91,4 +91,18 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+//  GET ALL USERS
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+
+    res.status(200).json({ success: true, data: users });
+  } catch (error) {
+    console.error("Error getting users:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+module.exports = { register, login, getUsers };
