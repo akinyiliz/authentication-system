@@ -105,4 +105,27 @@ const getUsers = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getUsers };
+// GET USER DETAILS BY ID
+const getUserDetails = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const user = await User.findOne({ _id: id });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ succss: false, message: "User with the specified not found." });
+    }
+
+    return res
+      .status(200)
+      .json({ success: true, message: "User found.", user: user });
+  } catch (error) {
+    console.error("Error geting user details:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+module.exports = { register, login, getUsers, getUserDetails };
