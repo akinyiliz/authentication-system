@@ -1,4 +1,3 @@
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/users");
 const authUtils = require("../utils/authUtils");
@@ -65,7 +64,7 @@ const login = async (req, res) => {
         .json({ success: false, message: "Invalid credentials." });
     }
 
-    const passwordMatch = await bcrypt.compare(
+    const passwordMatch = await authUtils.comparePassword(
       user.password,
       userExists.password
     );
