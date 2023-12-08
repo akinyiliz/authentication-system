@@ -13,6 +13,6 @@ router.post("/login", userController.login);
 router.get("/", userController.getUsers);
 
 // ROUTE - GET USER DETAILS BY ID
-router.get("/:id", userController.getUserDetails);
+router.get("/profile/:id", userController.getUserDetails);
 
 module.exports = router;
