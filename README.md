@@ -74,9 +74,9 @@ You can customize the application by modifying the configuration in the `.env` f
 
 # Routes
 
-- **POST /users/register**: Register a new user.
-- **POST /users/login**: Authenticate and log in a user.
-- **GET /profile**: Get the user profile (requires authentication).
+- **POST /api/users/register**: Register a new user.
+- **POST /api/users/login**: Authenticate and log in a user.
+- **GET /api/users/profile/:id**: Get the user profile (requires authentication).
 - **POST /logout**: Log out the authenticated user.
 
 # Contributing
