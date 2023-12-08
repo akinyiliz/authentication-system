@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const User = require("../models/users");
 const authUtils = require("../utils/authUtils");
 
@@ -51,8 +50,6 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const user = req.body;
 
-  const secretKey = process.env.JWT_SECRET;
-
   try {
     const userExists = await User.findOne({
       $or: [{ username: user.username }, { email: user.email }],
@@ -70,7 +67,7 @@ const login = async (req, res) => {
     );
 
     if (passwordMatch) {
-      const token = jwt.sign({ userId: userExists._id }, secretKey);
+      const token = await authUtils.generateJwtToken(userExists._id);
 
       return res.status(200).json({
         success: true,
