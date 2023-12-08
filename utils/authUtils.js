@@ -6,4 +6,9 @@ const generatePasswordHash = async (password) => {
   return hashedPassword;
 };
 
-module.exports = { generatePasswordHash };
+const comparePassword = async (password, enteredPassword) => {
+  const passwordMatch = await bcrypt.compare(password, enteredPassword);
+  return passwordMatch;
+};
+
+module.exports = { generatePasswordHash, comparePassword };
