@@ -1,8 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/users");
 const dbConnection = require("../db/connect");
 const userController = require("../controllers/UserController");
 
@@ -18,6 +15,9 @@ app.post("/users/login", userController.login);
 
 // ENDPOINT - GET ALL USERS
 app.get("/users", userController.getUsers);
+
+// ENDPOINT - GET USER DETAILS BY ID
+app.get("/users/:id", userController.getUserDetails);
 
 // SERVER
 const port = process.env.PORT;
