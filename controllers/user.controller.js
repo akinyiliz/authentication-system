@@ -44,9 +44,7 @@ const register = async (req, res) => {
     });
   } catch (error) {
     console.error("Error registering a user.", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -85,9 +83,7 @@ const login = async (req, res) => {
     }
   } catch (error) {
     console.error("Error logging in user:", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -99,9 +95,7 @@ const getUsers = async (req, res) => {
     res.status(200).json({ success: true, data: users });
   } catch (error) {
     console.error("Error getting users:", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -122,9 +116,7 @@ const getUserDetails = async (req, res) => {
       .json({ success: true, message: "User found.", user: user });
   } catch (error) {
     console.error("Error geting user details:", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
