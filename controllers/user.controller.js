@@ -1,5 +1,9 @@
 const User = require("../models/users");
-const authUtils = require("../utils/authUtils");
+const {
+  comparePassword,
+  generateJwtToken,
+  generatePasswordHash,
+} = require("../utils/auth.utils");
 
 // REGISTER A USER
 const register = async (req, res) => {
@@ -22,7 +26,7 @@ const register = async (req, res) => {
       });
     }
 
-    const hashedPassword = await authUtils.generatePasswordHash(user.password);
+    const hashedPassword = await generatePasswordHash(user.password);
 
     user.password = hashedPassword;
 
@@ -61,13 +65,13 @@ const login = async (req, res) => {
         .json({ success: false, message: "Invalid credentials." });
     }
 
-    const passwordMatch = await authUtils.comparePassword(
+    const passwordMatch = await comparePassword(
       user.password,
       userExists.password
     );
 
     if (passwordMatch) {
-      const token = await authUtils.generateJwtToken(userExists._id);
+      const token = await generateJwtToken(userExists._id);
 
       return res.status(200).json({
         success: true,
@@ -124,4 +128,56 @@ const getUserDetails = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getUsers, getUserDetails };
+// UPDATE USER DETAILS
+const updateUserDetails = async (req, res) => {
+  const userId = req.params.id;
+  const updateData = req.body;
+
+  try {
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ message: "User ID is required for updating." });
+    }
+
+    await User.updateOne({ _id: userId }, { $set: updateData });
+
+    res
+      .status(200)
+      .json({ success: true, message: "User details updated successfully." });
+  } catch (error) {
+    console.error("Error updating user details:", error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// DELETE USER
+const deleteUser = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ message: "User ID is required for deletion." });
+    }
+
+    await User.deleteOne({ _id: userId });
+
+    res
+      .status(200)
+      .json({ success: true, message: "User deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = {
+  register,
+  login,
+  getUsers,
+  getUserDetails,
+  updateUserDetails,
+  deleteUser,
+};
